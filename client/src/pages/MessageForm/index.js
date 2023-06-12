@@ -23,7 +23,7 @@ const MessageForm = (props) => {
   const [body, setBody] = useState("");
   const [error, setError] = useState("");
   const { data: users } = useUsers();
-
+  console.log(messages)
   const sendClick = () => {
     send(recipient, title, body)
       .then(() => {
@@ -86,6 +86,7 @@ const MessageForm = (props) => {
           ) : (
             <>
               {messages !== [] ? (
+                
                 messages.map((message) => (
                   <Flex key={message._id} w={"100%"}>
                     <Message
