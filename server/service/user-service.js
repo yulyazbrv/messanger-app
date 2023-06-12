@@ -8,7 +8,7 @@ class UserService {
     let candidate = await UserModel.findOne({ name });
     if (!candidate) {
       candidate = await UserModel.create({
-        name
+        name,
       });
     }
     const userDto = new UserDto(candidate);
@@ -23,27 +23,31 @@ class UserService {
   }
 
   async refresh(refreshToken) {
-    if (!refreshToken) {
-      throw new Error("Token Error1");
+    try {
+      if (!refreshToken) {
+        throw new Error("Token Error1");
+      }
+
+      const tokenFromDb = await tokenModel.findOne({
+        refreshTocken: refreshToken,
+      });
+      if (!tokenFromDb) {
+        throw new Error("Token Error2");
+      }
+
+      const userData = tokenService.validateRefreshToken(refreshToken);
+      const user = await UserModel.findById(userData.id);
+      if (!user) {
+        throw new Error("User not found");
+      }
+
+      const userDto = new UserDto(user);
+      const tokens = tokenService.generateTokens({ ...userDto });
+      await tokenService.saveToken(userDto.id, tokens.refreshToken);
+      return { ...tokens, user: userDto };
+    } catch (error) {
+      throw new Error(error.message);
     }
-    const userData = tokenService.validateRefreshToken(refreshToken);
-
-    const tokenFromDb = tokenModel.findOne({ refreshToken });
-
-    if (!userData || !tokenFromDb) {
-      throw new Error("Token Error2");
-    }
-    const user = await UserModel.findById(userData.id);
-    const userDto = new UserDto(user);
-    const tokens = tokenService.generateTokens({ ...userDto });
-
-    await tokenService.saveToken(userDto.id, tokens.refreshToken);
-    return { ...tokens, user: userDto };
-  }
-
-  async getAllUsers() {
-    const users = await UserModel.find();
-    return users;
   }
 }
 

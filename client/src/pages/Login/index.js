@@ -1,4 +1,4 @@
-import { Flex, Input, PasswordInput, Button, Title } from "@mantine/core";
+import { Flex, Input, Button, Title } from "@mantine/core";
 import "./style.css";
 import { useState } from "react";
 import { login } from "../../store/store";
