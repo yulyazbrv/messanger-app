@@ -85,7 +85,7 @@ const MessageForm = (props) => {
             </Flex>
           ) : (
             <>
-              {messages !== null ? (
+              {messages !== [] ? (
                 messages.map((message) => (
                   <Flex key={message._id} w={"100%"}>
                     <Message
