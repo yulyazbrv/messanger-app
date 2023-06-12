@@ -13,13 +13,7 @@ import { useMessages } from "./core/messages/useMessages";
 function App() {
   const [auth, setAuth] = useState();
   const navigate = useNavigate();
-  const {
-    data: messages,
-    isFetching: isLoading,
-    setState: setMessages,
-  } = auth
-    ? useMessages()
-    : { data: [], isFetching: false, setState: () => {} };
+  const { data: messages, isFetching: isLoading } = useMessages(auth);
 
   useEffect(() => {
     const token = localStorage.getItem("token");
@@ -52,6 +46,7 @@ function App() {
       setAuth(JSON.parse(auth));
     }
   }, []);
+
   return (
     <MantineProvider>
       <AppShell
@@ -59,7 +54,6 @@ function App() {
           <Header>
             {
               <HeaderContent
-                setMessages={setMessages}
                 auth={auth}
                 setAuth={setAuth}
               />
