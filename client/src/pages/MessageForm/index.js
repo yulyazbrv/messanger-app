@@ -14,6 +14,7 @@ import { Message } from "../../components/Messages";
 import "./style.css";
 import { observer } from "mobx-react-lite";
 import { useUsers } from "../../core/users/useUsers";
+import emptyIcon from "./assets/empty.png";
 
 const MessageForm = (props) => {
   const { messages, isLoading } = props;
@@ -82,18 +83,27 @@ const MessageForm = (props) => {
             <Loader />
           ) : (
             <>
-              {messages
-                ? messages.map((message) => (
-                    <Flex key={message._id} w={"100%"}>
-                      <Message
-                        date={message.date}
-                        from={message.userFrom.name}
-                        title={message.title}
-                        messageBody={message.message}
-                      ></Message>
-                    </Flex>
-                  ))
-                : []}
+              {messages ? (
+                messages.map((message) => (
+                  <Flex key={message._id} w={"100%"}>
+                    <Message
+                      date={message.date}
+                      from={message.userFrom.name}
+                      title={message.title}
+                      messageBody={message.message}
+                    ></Message>
+                  </Flex>
+                ))
+              ) : (
+                <Flex direction={"column"} gap={10} align={"center"} justify={"center"}>
+                  <img
+                    src={emptyIcon}
+                    alt="emptyIcon"
+                    className="empty-img"
+                  ></img>
+                  <p className="empty-title">Упс, здесь ничего нет!</p>
+                </Flex>
+              )}
             </>
           )}
         </ScrollArea>
