@@ -80,10 +80,12 @@ const MessageForm = (props) => {
       >
         <ScrollArea h={260} w={400}>
           {isLoading ? (
-            <Loader className="loader" />
+            <Flex justify={"center"} align={"center"} >
+              <Loader />
+            </Flex>
           ) : (
             <>
-              {(messages !== null) ? (
+              {messages !== null ? (
                 messages.map((message) => (
                   <Flex key={message._id} w={"100%"}>
                     <Message
@@ -95,7 +97,12 @@ const MessageForm = (props) => {
                   </Flex>
                 ))
               ) : (
-                <Flex direction={"column"} gap={10} align={"center"} justify={"center"}>
+                <Flex
+                  direction={"column"}
+                  gap={10}
+                  align={"center"}
+                  justify={"center"}
+                >
                   <img
                     src={emptyIcon}
                     alt="emptyIcon"
