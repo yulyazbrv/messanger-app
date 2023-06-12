@@ -12,7 +12,7 @@ app.use(express.json());
 app.use(cookieParser());
 app.use(
   cors({
-    origin: "https://jwt-auth-client-mu.vercel.app",
+    origin: "https://messanger-app-client.vercel.app/",
     methods: ["GET", "POST", "PUT", "DELETE"],
     credentials: true,
     handlePreflightRequest: (req, res) => {
