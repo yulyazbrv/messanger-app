@@ -13,11 +13,7 @@ import { useMessages } from "./core/messages/useMessages";
 function App() {
   const [auth, setAuth] = useState();
   const navigate = useNavigate();
-  const {
-    data: messages,
-    isFetching: isLoading,
-    setState: setMessages,
-  } = useMessages();
+  const { data: messages, isFetching: isLoading, setState } = useMessages();
 
   useEffect(() => {
     const token = localStorage.getItem("token");
@@ -57,7 +53,7 @@ function App() {
           <Header>
             {
               <HeaderContent
-                setMessages={setMessages}
+                setState={setState}
                 auth={auth}
                 setAuth={setAuth}
               />
