@@ -10,22 +10,27 @@ import {
 } from "@mantine/core";
 import { useState } from "react";
 import { send } from "../../store/store";
-import { useMessages } from "../../core/messages/useMessages";
 import { Message } from "../../components/Messages";
 import "./style.css";
 import { observer } from "mobx-react-lite";
 import { useUsers } from "../../core/users/useUsers";
 
-const MessageForm = () => {
+const MessageForm = (props) => {
+  const { messages, isLoading } = props;
   const [recipient, setRecipient] = useState("");
   const [title, setTitle] = useState("");
   const [body, setBody] = useState("");
-  const { data: messages, isFetching: isLoading } = useMessages();
   const [error, setError] = useState("");
   const { data: users } = useUsers();
 
   const sendClick = () => {
     send(recipient, title, body)
+      .then(() => {
+        setBody("");
+        setTitle("");
+        setRecipient("");
+        setError("Succesfully");
+      })
       .catch(() => {
         setError("Error");
       });

@@ -7,11 +7,17 @@ import { useEffect, useState } from "react";
 import { checkAuth, logout } from "./store/store";
 import { Home } from "./pages/Home";
 import { observer } from "mobx-react-lite";
-import  MessageForm  from "./pages/MessageForm";
+import MessageForm from "./pages/MessageForm";
+import { useMessages } from "./core/messages/useMessages";
 
 function App() {
   const [auth, setAuth] = useState();
   const navigate = useNavigate();
+  const {
+    data: messages,
+    isFetching: isLoading,
+    setState: setMessages,
+  } = useMessages();
 
   useEffect(() => {
     const token = localStorage.getItem("token");
@@ -48,7 +54,15 @@ function App() {
     <MantineProvider>
       <AppShell
         header={
-          <Header>{<HeaderContent auth={auth} setAuth={setAuth} />}</Header>
+          <Header>
+            {
+              <HeaderContent
+                setMessages={setMessages}
+                auth={auth}
+                setAuth={setAuth}
+              />
+            }
+          </Header>
         }
         styles={(theme) => ({
           main: { backgroundColor: "#f7f7f8" },
@@ -60,7 +74,13 @@ function App() {
           <Route path="login/user">
             <Route
               path=":name"
-              element={<MessageForm setAuth={setAuth} />}
+              element={
+                <MessageForm
+                  isLoading={isLoading}
+                  messages={messages}
+                  setAuth={setAuth}
+                />
+              }
             ></Route>
           </Route>
         </Routes>

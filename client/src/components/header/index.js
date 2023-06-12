@@ -7,7 +7,7 @@ import { logout } from "../../store/store";
 import { useNavigate } from "react-router-dom";
 
 const HeaderContent = (props) => {
-  const { auth, setAuth } = props;
+  const { auth, setAuth, setMessages } = props;
   const navigate = useNavigate();
   const { pathname } = useLocation();
   return (
@@ -17,6 +17,7 @@ const HeaderContent = (props) => {
           <Button
             onClick={() => {
               logout();
+              setMessages([]);
               navigate(`/`);
               setAuth(false);
             }}
