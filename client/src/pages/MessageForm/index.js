@@ -80,7 +80,7 @@ const MessageForm = (props) => {
       >
         <ScrollArea h={260} w={400}>
           {isLoading ? (
-            <Flex justify={"center"} align={"center"}  h={"100%"}>
+            <Flex className="loader">
               <Loader />
             </Flex>
           ) : (
