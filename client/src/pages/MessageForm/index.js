@@ -86,9 +86,8 @@ const MessageForm = (props) => {
           ) : (
             <>
               {messages.length !== 0 ? (
-                
                 messages.map((message) => (
-                  <Flex key={message._id} w={"100%"} mt={20}>
+                  <Flex key={message._id} w={"100%"}>
                     <Message
                       date={message.date}
                       from={message.userFrom.name}
@@ -103,6 +102,7 @@ const MessageForm = (props) => {
                   gap={10}
                   align={"center"}
                   justify={"center"}
+                  mt={20}
                 >
                   <img
                     src={emptyIcon}
