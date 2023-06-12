@@ -16,7 +16,6 @@ const HeaderContent = (props) => {
         {auth ? (
           <Button
             onClick={() => {
-              setMessages([]);
               logout();
               navigate(`/`);
               setAuth(false);

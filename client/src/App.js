@@ -17,7 +17,9 @@ function App() {
     data: messages,
     isFetching: isLoading,
     setState: setMessages,
-  } = useMessages();
+  } = auth
+    ? useMessages()
+    : { data: [], isFetching: false, setState: () => {} };
 
   useEffect(() => {
     const token = localStorage.getItem("token");
