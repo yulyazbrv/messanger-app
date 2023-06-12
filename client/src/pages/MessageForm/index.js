@@ -80,10 +80,10 @@ const MessageForm = (props) => {
       >
         <ScrollArea h={260} w={400}>
           {isLoading ? (
-            <Loader />
+            <Loader className="loader" />
           ) : (
             <>
-              {messages ? (
+              {(messages !== null) ? (
                 messages.map((message) => (
                   <Flex key={message._id} w={"100%"}>
                     <Message
